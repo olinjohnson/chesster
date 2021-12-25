@@ -1,0 +1,63 @@
+body {
+    background-color: #ffffff;
+    margin:0px;
+    padding:0px;
+    text-align:center;
+    font-family: 'Roboto', sans-serif;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+#board {
+    border-top: 4px solid #cccccc;
+    margin:0px;
+}
+
+.row {
+    margin:0px;
+}
+
+.square {
+    width:80px;
+    height:80px;
+    margin:0px;
+    float:left;
+}
+.s1 {
+    background-color:#cccccc;
+}
+.s2 {
+    background-color:#ffffff;
+}
+
+#moveButton {
+    width: 640px;
+    border-top:4px solid #cccccc;
+    border-bottom:4px solid #cccccc;
+    outline:none;
+    border-right:none;
+    border-left:none;
+    background-color:transparent;
+    border-radius: 0px;
+    padding:8px;
+    font-family: 'Roboto', sans-serif;
+    font-size:14pt;
+    margin:0px;
+}
+
+#moveButton:hover {
+    background-color: #e9e9e9;
+}
+
+.boardPiece {
+    height: 65px;
+    margin-top:7.5px;
+}

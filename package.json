@@ -1,0 +1,16 @@
+{
+  "name": "chesster",
+  "version": "1.0.0",
+  "description": "Chess AI",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "compile": "clang -o engine/engine.out engine/engine.c"
+  },
+  "author": "Olin Johnson",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^16.0.4"
+  }
+}
