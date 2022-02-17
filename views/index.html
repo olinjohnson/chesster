@@ -1,16 +1,63 @@
 <!DOCTYPE html>
 <html lang=en>
     <head>
-        <title>CHESSTER</title>
+        <title>CHESSTER by Olin</title>
         <link rel='stylesheet' type='text/css' href='../public/css/index.css'>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+        <link rel='stylesheet' type='text/css' href='../public/css/board.css'>
     </head>
     <body>
-        <h1 id='mainTag'>Chesster</h1>
-        <div id='board'></div>
-        <button id='moveButton'>Execute Move</button>
+        <div class='container-1'>
+            <div>
+                <p class='mainTag'>Chesster</p>
+                <p class='authorTag'>By Olin</p>
+            </div>
+            <div class='container-2'>
+                <button id='settingsButton' onClick='editSettings()'>Settings</button>
+                <button id='styleButton' onClick='editStyling()'>Edit Styling</button>
+            </div>
+        </div>
+        <div class='styleContainer'>
+            <p><strong> > Editing styling will reset any ongoing chess game.</strong></p><br />
+            <div class='styleContainer2'>
+                <div>
+                    <label>Color 1 (white):</label>
+                    <input id='col1' type='color' value='#f9f9f9'/>
+                    <label>Color 2 (black):</label>
+                    <input id='col2' type='color' value='#494949'/>
+                </div>
+                <div>
+                    <button class='doneStyleButton' onClick='doneEditingStyling()'>Done</button>
+                    <button class='doneStyleButton' onClick='doneEditingStylingCanceled()'>Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class='settingsContainer'>
+            <div>
+                <label>Multithreaded performance:</label>
+                <input id='multiThreadPerfBool' type='checkbox'/>
+            </div>
+            <button class='doneSettingsButton' onClick='doneEditingSettings()'>Done</button>
+        </div>
+        <main>
+            <div id='board'></div>
+            <button id='moveButton' onClick='executeMove()'>Execute Move</button>
+        </main>
+        <div id='sidebar'>
+            <p class='sidebarHeading'>Moves:</p>
+            <div id='sidebarContainer'></div>
+        </div>
+        <div class='popup-form-container'>
+            <div class='popup-form'>
+                <div class='popup-form-elem-container'><img src='../public/images/set1/bishop0.png' class='popup-form-elem' draggable="false"></div>
+                <div class='popup-form-elem-container'><img src='../public/images/set1/knight0.png' class='popup-form-elem' draggable="false"></div>
+                <div class='popup-form-elem-container'><img src='../public/images/set1/rook0.png' class='popup-form-elem' draggable="false"></div>
+                <div class='popup-form-elem-container'><img src='../public/images/set1/queen0.png' class='popup-form-elem' draggable="false"></div>
+            </div>
+        </div>
+        <script src='../public/js/movesUtil.js'></script>
+        <script src='../public/js/movement.js'></script>
         <script src='../public/js/index.js'></script>
+        <script src='../public/js/styling.js'></script>
+        <script src='../public/js/settings.js'></script>
     </body>
 </html>

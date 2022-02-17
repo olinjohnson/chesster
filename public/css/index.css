@@ -1,63 +1,178 @@
 body {
-    background-color: #ffffff;
-    margin:0px;
-    padding:0px;
-    text-align:center;
-    font-family: 'Roboto', sans-serif;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none;
+  background-color: #ffffff;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+  font-family: "JetBrains Mono", monospace;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+  cursor: pointer;
+}
+body .waiting {
+  cursor: wait;
+  pointer-events: none;
+}
+
+main {
+  max-width: 800px;
+  float: left;
 }
 
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
-#board {
-    border-top: 4px solid #cccccc;
-    margin:0px;
+.container-1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 15px;
+  margin-right: 15px;
+  justify-content: space-between;
 }
 
-.row {
-    margin:0px;
+.container-2 {
+  display: flex;
+  justify-content: space-between;
 }
 
-.square {
-    width:80px;
-    height:80px;
-    margin:0px;
-    float:left;
+.mainTag {
+  font-size: 20pt;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
-.s1 {
-    background-color:#cccccc;
+
+.authorTag {
+  font-size: 12pt;
+  float: left;
+  margin: 0px;
+  margin-bottom: 15px;
 }
-.s2 {
-    background-color:#ffffff;
+
+#styleButton,
+.doneStyleButton,
+#moveButton,
+.doneSettingsButton,
+#settingsButton {
+  align-items: center;
+  appearance: none;
+  background-color: #fcfcfd;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(54, 54, 54, 0.4) 0 2px 4px,
+    rgba(54, 54, 54, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: black;
+  display: inline-flex;
+  font-family: "JetBrains Mono", monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-size: 18px;
+}
+
+#styleButton:focus,
+.doneStyleButton:focus,
+#moveButton:focus,
+.doneSettingsButton:focus,
+#settingsButton:focus {
+  box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(54, 54, 54, 0.4) 0 2px 4px,
+    rgba(54, 54, 54, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+}
+
+#styleButton:hover,
+.doneStyleButton:hover,
+#moveButton:hover,
+.doneSettingsButton:hover,
+#settingsButton:hover {
+  box-shadow: rgba(54, 54, 54, 0.4) 0 4px 8px,
+    rgba(54, 54, 54, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+#styleButton:active,
+.doneStyleButton:active,
+#moveButton:active,
+.doneSettingsButton:active,
+#settingsButton:active {
+  box-shadow: #d6d6e7 0 3px 7px inset;
+  transform: translateY(2px);
 }
 
 #moveButton {
-    width: 640px;
-    border-top:4px solid #cccccc;
-    border-bottom:4px solid #cccccc;
-    outline:none;
-    border-right:none;
-    border-left:none;
-    background-color:transparent;
-    border-radius: 0px;
-    padding:8px;
-    font-family: 'Roboto', sans-serif;
-    font-size:14pt;
-    margin:0px;
+  width: 100%;
 }
 
-#moveButton:hover {
-    background-color: #e9e9e9;
+.doneStyleButton,
+.doneSettingsButton {
+  height: 30px;
+  font-size: 12pt;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-right: 5px;
 }
 
-.boardPiece {
-    height: 65px;
-    margin-top:7.5px;
+.styleContainer2,
+.settingsContainer {
+  flex-direction: row;
+  align-items: center;
+  margin-left: 15px;
+  margin-right: 15px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.styleContainer,
+.settingsContainer {
+  display: none;
+}
+.styleContainer2 {
+  display: flex;
+}
+
+.styleContainer p {
+  margin: 0px;
+}
+
+.styleContainer2 div,
+.settingsContainer div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.styleContainer2 label {
+  margin-right: 5px;
+}
+
+.styleContainer2 input {
+  margin-right: 25px;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+}
+
+#settingsButton {
+  margin-right: 5px;
+}
+
+.doneSettingsButton {
+  margin-left: 15px;
 }

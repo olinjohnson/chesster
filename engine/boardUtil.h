@@ -3,49 +3,60 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-char** fenToBoard(char *fen)
+// Board dimensions
+int dimX = 8,
+    dimY = 8;
+
+char **fenToCharBoard(char *fen)
 {
-    typedef char board[8][8];
-
-    
-
-    int yPos = 0;
-    int xPos = 0;
-
-    for(int i = 0, l = strlen(fen); i < l; i++)
+    // Initialize pointer to gameboard
+    char **pBoard;
+    pBoard = malloc(dimY * sizeof(char *));
+    for (int i = 0; i < dimY; i++)
     {
-        if(isdigit(fen[i]))
+        pBoard[i] = malloc(dimX * sizeof(char));
+        for (int x = 0; x < dimX; x++)
+        {
+            pBoard[i][x] = 'E';
+        }
+    }
+    // Input pieces into board array
+    int xPos = 0;
+    int yPos = 0;
+    for (int i = 0, l = strlen(fen); i < l; i++)
+    {
+        if (isdigit(fen[i]))
         {
             xPos += fen[i] - '0';
             xPos = (xPos == 8) ? 0 : xPos;
         }
-        else if(fen[i] != 47)
+        else if (fen[i] == 47)
         {
-            xPos = (xPos == 7) ? 0 : xPos + 1;
+            yPos++;
         }
         else
         {
-            strCopy(gameBoard[yPos, xPos], fen[i]);
-            yPos++;
+            pBoard[yPos][xPos] = fen[i];
+            xPos = (xPos == 7) ? 0 : xPos + 1;
         }
     }
-    
-    return pGameBoard;
+    return pBoard;
 }
 
 void destroyBoard(char **board)
 {
-    for(int i = 0; i < 8; i++)
+    for (int i = 0; i < dimY; i++)
     {
         free(board[i]);
     }
+    free(board);
 }
 
-void logBoard(char **board)
+void printBoard(char **board)
 {
-    for(int i = 0; i < 8; i++)
+    for (int i = 0; i < 8; i++)
     {
-        for(int x = 0; x < 8; x++)
+        for (int x = 0; x < 8; x++)
         {
             printf("%c", board[i][x]);
         }
