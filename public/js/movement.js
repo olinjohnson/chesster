@@ -1,9 +1,9 @@
-var piecesTaken0 = [];
-var piecesTaken1 = [];
+//var piecesTaken0 = [];
+//var piecesTaken1 = [];
 var movesRecord = [];
 var currentMove = [];
-var kingHasBeenCheck = false;
-var kingInCheck = false;
+//var kingHasBeenCheck = false;
+//var kingInCheck = false;
 var turn = 0;
 
 const dragStart = (e) => {
@@ -51,58 +51,54 @@ const dragEnd = (e) => {
 
 const drop = (e) => {
   e.preventDefault();
-  const id = e.dataTransfer.getData("id");
+  var id = e.dataTransfer.getData("id");
   const elemDragged = document.getElementById(id);
-  //Check if drop position is a valid move
-  if (e.target.classList.contains("validmove")) {
+  const mov = e.target.classList.contains("validmove") ? true : false;
+  const cap = e.target.parentNode.classList.contains("validcapture")
+    ? true
+    : false;
+  //Check if drop position is a valid move or valid capture
+  if (mov || cap) {
     elemDragged.classList.remove("hide");
-    elemDragged.id = replaceSubstr(elemDragged.id, 3, 6, e.target.id);
-    e.target.appendChild(elemDragged);
+    //Update ID
+    elemDragged.id = replaceSubstr(
+      id,
+      3,
+      6,
+      mov ? e.target.id : e.target.id.substring(3, 6)
+    );
+    id = elemDragged.id;
+
+    //Execute drop
+    if (cap) {
+      e.target.parentNode.appendChild(elemDragged);
+      e.target.parentNode.removeChild(e.target);
+    } else {
+      e.target.appendChild(elemDragged);
+    }
+
+    //Record move in movesRecord[] list
     movesRecord.push([
       [currentMove[0], currentMove[1]],
       [elemDragged.id[3], elemDragged.id[5]],
     ]);
+
     //Show new move in the side bar
-    showNewMoveSidebar(
-      elemDragged.id.substring(6, elemDragged.id.length - 1),
-      elemDragged.id[elemDragged.id.length - 1],
+    showNewMoveInSidebar(
+      id.substring(6, id.length - 1),
+      id[id.length - 1],
       movesRecord.length - 1
     );
     checkPawnPromo(e, id);
     turn = turn == 0 ? 1 : 0;
-  } else if (
-    //Check if drop position is a valid capture
-    e.target.parentNode &&
-    e.target.parentNode.classList.contains("validcapture")
-  ) {
-    elemDragged.classList.remove("hide");
-    elemDragged.id = replaceSubstr(
-      elemDragged.id,
-      3,
-      6,
-      e.target.id.substring(3, 6)
-    );
-    e.target.parentNode.appendChild(elemDragged);
-    e.target.parentNode.removeChild(e.target);
-    movesRecord.push([
-      [currentMove[0], currentMove[1]],
-      [elemDragged.id[3], elemDragged.id[5]],
-    ]);
-    //Show new move in the sidebar
-    showNewMoveSidebar(
-      elemDragged.id.substring(6, elemDragged.id.length - 1),
-      elemDragged.id[elemDragged.id.length - 1],
-      movesRecord.length - 1
-    );
-    checkPawnPromo(e, elemDragged.id);
-    turn = turn == 0 ? 1 : 0;
   }
-  highlightAttackingSquares(elemDragged.id[elemDragged.id.length - 1]);
+
+  /*highlightAttackingSquares(elemDragged.id[elemDragged.id.length - 1]);
   unHighlightPinnedPieces();
-  highlightPinnedPieces(id[id.length - 1]);
+  highlightPinnedPieces(id[id.length - 1]);*/
 };
 
-const showNewMoveSidebar = (piece, color, mIndex) => {
+const showNewMoveInSidebar = (piece, color, mIndex) => {
   var sidebarC = document.getElementById("sidebarContainer");
   var newMoveContainer = document.createElement("div");
   newMoveContainer.classList.add("newMoveContainer");
