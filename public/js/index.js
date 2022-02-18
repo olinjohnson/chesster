@@ -2,8 +2,7 @@ const button = document.getElementById("moveButton");
 const display = document.getElementById("mainTag");
 const board = document.getElementById("board");
 //const startingFen = "rnbqkbnr/pppppppp/8/8/8/8/PPP11PPP/RNBQKBNR";
-const startingFen =
-  "rnb1k1nr/pppp1111/1111q1p1/1B1111Pp/1b11111P/11PR1111/PP11Np11/RNB1K111";
+const startingFen = "rnb1k1nr/pppp4/4q1p1/1B4Pp/1b5P/2PR4/PP2Np2/RNB1K3";
 
 //Function to generate board squares
 const generateBoard = () => {
@@ -42,36 +41,32 @@ const createPieceElem = (i, x, pieceName) => {
 };
 
 //Function that will take in a fen string and output it on the game board
-//NEEDS FIXING - Faulty
 const fenToBoard = (fen) => {
-  rows = fen.split("/");
-  for (var i = 0; i < rows.length; i++) {
-    for (var x = 0; x < rows[i].length; x++) {
-      if (rows[i][x] == "R") {
-        createPieceElem(i, x, "rook0");
-      } else if (rows[i][x] == "N") {
-        createPieceElem(i, x, "knight0");
-      } else if (rows[i][x] == "B") {
-        createPieceElem(i, x, "bishop0");
-      } else if (rows[i][x] == "Q") {
-        createPieceElem(i, x, "queen0");
-      } else if (rows[i][x] == "K") {
-        createPieceElem(i, x, "king0");
-      } else if (rows[i][x] == "P") {
-        createPieceElem(i, x, "pawn0");
-      } else if (rows[i][x] == "r") {
-        createPieceElem(i, x, "rook1");
-      } else if (rows[i][x] == "n") {
-        createPieceElem(i, x, "knight1");
-      } else if (rows[i][x] == "b") {
-        createPieceElem(i, x, "bishop1");
-      } else if (rows[i][x] == "q") {
-        createPieceElem(i, x, "queen1");
-      } else if (rows[i][x] == "k") {
-        createPieceElem(i, x, "king1");
-      } else if (rows[i][x] == "p") {
-        createPieceElem(i, x, "pawn1");
-      }
+  const pieceLetterFenConversion = {
+    R: "rook0",
+    N: "knight0",
+    B: "bishop0",
+    Q: "queen0",
+    K: "king0",
+    P: "pawn0",
+    r: "rook1",
+    n: "knight1",
+    b: "bishop1",
+    q: "queen1",
+    k: "king1",
+    p: "pawn1",
+  };
+  var xPos = 0;
+  var yPos = 0;
+  for (var i = 0, l = fen.length; i < l; i++) {
+    if (fen[i] >= "0" && fen[i] <= "9") {
+      xPos += Number(fen[i]);
+      xPos = xPos == 8 ? 0 : xPos;
+    } else if (fen[i] == "/") {
+      yPos++;
+    } else {
+      createPieceElem(yPos, xPos, pieceLetterFenConversion[fen[i]]);
+      xPos = xPos == 7 ? 0 : xPos + 1;
     }
   }
 };
@@ -137,6 +132,8 @@ const executeMove = () => {
 
 generateBoard();
 fenToBoard(startingFen);
+
+//Temporary
 window.addEventListener("keydown", (e) => {
   if (e.key == "a") {
     unhighlightSquares();
