@@ -55,5 +55,6 @@ def execute_move(board, move):
 def get_random_move(board, turn):
 
     valid_moves = get_valid_moves(board, turn)
-    print(len(valid_moves), "\n")
+    master.type_text("Chesster is thinking...")
+    print("Number of possibilities: ", len(valid_moves), "\n")
     return random.choice(valid_moves)

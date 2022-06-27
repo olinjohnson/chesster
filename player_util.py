@@ -1,13 +1,32 @@
+from xml.dom import InvalidCharacterErr, InvalidStateErr
 import master
 import movement_util as mu
 import board_util as bu
 
-def request_move(board):
+def make_player_move(board, turn):
 
-    print("\n\n")
+    while True:
+
+        try:
+
+            request_move(board, turn)
+
+        except InvalidCharacterErr:
+            
+            continue
+        
+        break
+
+
+def request_move(board, turn):
+
     master.type_text("Please make a move.")
     assassin_unfiltered = input("Algebraic coords of the piece you are moving: ")
     victim_unfiltered = input("Algebraic coords of intended destination: ")
+
+    if assassin_unfiltered == "quit":
+
+        raise InvalidStateErr
 
     try:
 
@@ -17,13 +36,13 @@ def request_move(board):
     except:
 
         master.type_text("\n\nINVALID. - INVALID BOARD COORDS\n\n")
-        return
+        raise InvalidCharacterErr
 
     assassin = board[assassin_coord[0]][assassin_coord[1]]
     victim = board[victim_coord[0]][victim_coord[1]]
 
     # Check to make sure the player isn't moving the computer's piece
-    if (assassin.islower() and master.turn == "b") or (assassin.isupper() and master.turn == "w"):
+    if (assassin.islower() and turn == "b") or (assassin.isupper() and turn == "w"):
 
         valid_moves = []
 
@@ -50,9 +69,11 @@ def request_move(board):
         else:
 
             master.type_text("\n\nINVALID. - NOT A VALID MOVE")
+            raise InvalidCharacterErr
 
     else:
 
         master.type_text("\n\nINVALID. - YOU MAY ONLY MOVE YOUR OWN PIECES.")
+        raise InvalidCharacterErr
     
     print("\n\n")
