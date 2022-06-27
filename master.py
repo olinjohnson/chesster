@@ -13,6 +13,14 @@ import movement_util as mu
 import chesster
 import player_util as pu
 
+black = "\033[0;30m"
+purple = "\033[0;35m"
+blue = "\033[0;34m"
+green = "\033[0;32m"
+red = "\033[0;31m"
+yellow = "\033[0;33m"
+white = "\033[0;37m"
+
 width = 8
 height = 8
 
@@ -35,7 +43,7 @@ def main():
 
     except:
 
-        type_text("Invalid response. Terminating.", finish="\n\n")
+        type_text("Invalid response. Terminating.", color=red, finish="\n\n")
         sys.exit()
 
     board = bu.fen_to_board(starting_fen)
@@ -57,11 +65,11 @@ def main():
 def start_game():
     
     print("\n\n")
-    type_text("Hey there, I'm chesster.")
-    type_text("Let's begin.", finish="\n\n")
+    type_text("Hey there, I'm chesster.", color=blue)
+    type_text("Let's begin.", color=blue, finish="\n\n")
 
-    type_text("Would you like to be black or white?")
-    type_text("Type 'b' for black or 'w' for white.", finish="\n\n")
+    type_text("Would you like to be black or white?", color=green)
+    type_text("Type 'b' for black or 'w' for white.", color=green, finish="\n\n")
     global turn
     global chesster_turn
     global current_turn
@@ -77,8 +85,10 @@ def start_game():
         chesster_turn = "w"
 
 
-def type_text(text, finish="\n"):
+def type_text(text, color=black, finish="\n"):
     
+    print(color)
+
     time.sleep(0.5)
 
     for c in text:
@@ -88,6 +98,7 @@ def type_text(text, finish="\n"):
         sys.stdout.flush()
 
     print(finish)
+
 
 def toggle_turn():
 

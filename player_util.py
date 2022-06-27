@@ -20,7 +20,8 @@ def make_player_move(board, turn):
 
 def request_move(board, turn):
 
-    master.type_text("Please make a move.")
+    master.type_text("Please make a move.", color=master.yellow)
+    print(master.green)
     assassin_unfiltered = input("Algebraic coords of the piece you are moving: ")
     victim_unfiltered = input("Algebraic coords of intended destination: ")
 
@@ -35,7 +36,7 @@ def request_move(board, turn):
     
     except:
 
-        master.type_text("\n\nINVALID. - INVALID BOARD COORDS\n\n")
+        master.type_text("\n\nINVALID. - INVALID BOARD COORDS\n\n", color=master.red)
         raise InvalidCharacterErr
 
     assassin = board[assassin_coord[0]][assassin_coord[1]]
@@ -64,16 +65,16 @@ def request_move(board, turn):
 
             board[victim_coord[0]][victim_coord[1]] = assassin
             board[assassin_coord[0]][assassin_coord[1]] = master.ec
-            master.type_text("\n\nVALID.")
+            master.type_text("\n\nVALID.", color=master.blue)
         
         else:
 
-            master.type_text("\n\nINVALID. - NOT A VALID MOVE")
+            master.type_text("\n\nINVALID. - NOT A VALID MOVE", color=master.red)
             raise InvalidCharacterErr
 
     else:
 
-        master.type_text("\n\nINVALID. - YOU MAY ONLY MOVE YOUR OWN PIECES.")
+        master.type_text("\n\nINVALID. - YOU MAY ONLY MOVE YOUR OWN PIECES.", color=master.red)
         raise InvalidCharacterErr
     
     print("\n\n")

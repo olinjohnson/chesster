@@ -44,6 +44,7 @@ def generate_board(h, w):
 
 
 def print_board(board):
+    print(master.black)
 
     for y in range(0, 8):
 
