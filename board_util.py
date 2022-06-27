@@ -1,3 +1,4 @@
+from xml.dom import InvalidCharacterErr
 import master
 
 def fen_to_board(fen):
@@ -41,12 +42,28 @@ def generate_board(h, w):
 
     return rows
 
+
 def print_board(board):
 
-    for y in board:
+    for y in range(0, 8):
 
-        for x in y:
+        print(str(8 - y) + "   ", end="")
 
-            print(x + " ", end="")
+        for x in range(0, 8):
+
+            print(board[y][x] + " ", end="")
             
         print("\n")
+    
+    print("\n    a b c d e f g h\n")
+
+
+def algebraic_to_board_coord(a):
+    
+    if len(a) == 2 and ord(a[0]) > 96 and ord(a[0]) < 105 and ord(a[1]) > 48 and ord(a[1]) < 57:
+
+        return [7 - (int(a[1]) - 1), ord(a[0]) - 97]
+
+    else:
+
+        raise InvalidCharacterErr

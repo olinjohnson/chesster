@@ -1,5 +1,7 @@
 import master
 
+previous_moves = []
+
 directions = [
     [1, 0],
     [0, 1],
@@ -19,8 +21,6 @@ directions = [
     [1, -2],
     [-1, -2]
 ]
-
-# TODO: Pinned pieces, En Passent, Castling, Promotion
 
 def sliding_moves(board, y_pos, x_pos):
 
