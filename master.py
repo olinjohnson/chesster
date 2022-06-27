@@ -5,27 +5,13 @@
 # TODO: Check for Check, Check for Checkmate
 # TODO: Revise `request_move` to utilize `Move` class
 
-import time
 import sys
 from xml.dom import InvalidCharacterErr
 from board_util import Board
+from player_util import Player
 import movement_util as mu
 import chesster
-import player_util as pu
-
-# Console colors
-black = "\033[0;30m"
-purple = "\033[0;35m"
-blue = "\033[0;34m"
-green = "\033[0;32m"
-red = "\033[0;31m"
-yellow = "\033[0;33m"
-white = "\033[0;37m"
-
-width = 8
-height = 8
-
-ec = '-'
+import text
 
 turn = "w"
 chesster_turn = "b"
@@ -44,18 +30,19 @@ def main():
 
     except:
 
-        type_text("Invalid response. Terminating.", color=red, finish="\n\n")
+        text.type_text("Invalid response. Terminating.", color=text.red, finish="\n\n")
         sys.exit()
 
 
-    board = Board(height, width, starting_fen, ec)
+    board = Board(text.height, text.width, starting_fen, text.ec)
+    player = Player(turn)
 
     while True:
 
         if current_turn == turn:
 
             board.print_board()
-            pu.make_player_move(board, turn)
+            player.make_player_move(board)
             toggle_turn()
 
         else:
@@ -67,11 +54,11 @@ def main():
 def start_game():
     
     print("\n\n")
-    type_text("Hey there, I'm chesster.", color=blue)
-    type_text("Let's begin.", color=blue, finish="\n\n")
+    text.type_text("Hey there, I'm chesster.", color=text.blue)
+    text.type_text("Let's begin.", color=text.blue, finish="\n\n")
 
-    type_text("Would you like to be black or white?", color=green)
-    type_text("Type 'b' for black or 'w' for white.", color=green, finish="\n\n")
+    text.type_text("Would you like to be black or white?", color=text.green)
+    text.type_text("Type 'b' for black or 'w' for white.", color=text.green, finish="\n\n")
     global turn
     global chesster_turn
     global current_turn
@@ -85,21 +72,6 @@ def start_game():
     if turn == "b":
 
         chesster_turn = "w"
-
-
-def type_text(text, color=black, finish="\n"):
-    
-    print(color)
-
-    time.sleep(0.5)
-
-    for c in text:
-
-        time.sleep(0.04)
-        sys.stdout.write(c)
-        sys.stdout.flush()
-
-    print(finish)
 
 
 def toggle_turn():

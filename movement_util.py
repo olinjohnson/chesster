@@ -1,4 +1,4 @@
-import master
+import text
 
 previous_moves = []
 
@@ -38,9 +38,9 @@ def sliding_moves(board, y_pos, x_pos):
 
         blocked = 0
 
-        while y_offset < master.height and y_offset > -1 and x_offset < master.width and x_offset > -1 and blocked == 0:
+        while y_offset < text.height and y_offset > -1 and x_offset < text.width and x_offset > -1 and blocked == 0:
             
-            if board.board[y_offset][x_offset] != master.ec:
+            if board.board[y_offset][x_offset] != text.ec:
                 blocked = 1
                 blocking = board.board[y_offset][x_offset]
 
@@ -70,11 +70,11 @@ def limited_moves(board, y_pos, x_pos):
         y_offset = y_pos + d[0]
         x_offset = x_pos + d[1]
 
-        if y_offset < master.height and y_offset > -1 and x_offset < master.width and x_offset > -1:
+        if y_offset < text.height and y_offset > -1 and x_offset < text.width and x_offset > -1:
 
             blocking = board.board[y_offset][x_offset]
 
-            if blocking != master.ec:
+            if blocking != text.ec:
 
                 # Capture
                 if not (blocking.islower() and piece.islower()) and not (blocking.isupper() and piece.isupper()):
@@ -101,11 +101,11 @@ def pawn_moves(board, y_pos, x_pos):
         y_offset = y_pos + d[0]
         x_offset = x_pos + d[1]
 
-        if y_offset < master.height and y_offset > -1 and x_offset < master.width and x_offset > -1:
+        if y_offset < text.height and y_offset > -1 and x_offset < text.width and x_offset > -1:
             
             blocking = board.board[y_offset][x_offset]
 
-            if blocking == master.ec and i == 0:
+            if blocking == text.ec and i == 0:
 
                 # Empty Square
                 moves.append([y_offset, x_offset])
@@ -116,7 +116,7 @@ def pawn_moves(board, y_pos, x_pos):
                     y_offset = y_offset + d[0]
                     x_offset = x_offset + d[1]
 
-                    if board.board[y_offset][x_offset] == master.ec:
+                    if board.board[y_offset][x_offset] == text.ec:
                         
                         # Pawn is on starting square and can move 2 spaces
                         moves.append([y_offset, x_offset])

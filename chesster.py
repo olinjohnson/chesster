@@ -1,4 +1,4 @@
-import master
+import text
 import movement_util as mu
 import random
 
@@ -18,7 +18,7 @@ def get_valid_moves(board, turn):
 
             suspect = board.board[y][x]
 
-            if suspect != master.ec:
+            if suspect != text.ec:
 
                 if (suspect.islower() and turn == "b") or (suspect.isupper() and turn == "w"):
 
@@ -49,7 +49,7 @@ def execute_move(board, turn):
     move = get_random_move(board, turn)
 
     board.board[move.victim[0]][move.victim[1]] = board.board[move.assassin[0]][move.assassin[1]]
-    board.board[move.assassin[0]][move.assassin[1]] = master.ec
+    board.board[move.assassin[0]][move.assassin[1]] = text.ec
 
     return board
 
@@ -57,6 +57,6 @@ def execute_move(board, turn):
 def get_random_move(board, turn):
 
     valid_moves = get_valid_moves(board, turn)
-    master.type_text("Chesster is thinking...", color=master.yellow)
+    text.type_text("Chesster is thinking...", color=text.yellow)
     print("Number of possibilities: ", len(valid_moves), "\n")
     return random.choice(valid_moves)
