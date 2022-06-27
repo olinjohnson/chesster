@@ -1,6 +1,6 @@
 import master
 
-sliding_directions = [
+directions = [
     [1, 0],
     [0, 1],
     [-1, 0],
@@ -8,10 +8,8 @@ sliding_directions = [
     [1, 1],
     [-1, 1],
     [-1, -1],
-    [1, -1]
-]
+    [1, -1],
 
-knight_directions = [
     [-2, -1],
     [-2, 1],
     [-1, 2],
@@ -22,7 +20,7 @@ knight_directions = [
     [-1, -2]
 ]
 
-# TODO: Pinned pieces, En Passent, Castling
+# TODO: Pinned pieces, En Passent, Castling, Promotion
 
 def sliding_moves(board, y_pos, x_pos):
 
@@ -34,7 +32,7 @@ def sliding_moves(board, y_pos, x_pos):
     moves = []
 
     for i in range(start_dir, end_dir):
-        d = sliding_directions[i]
+        d = directions[i]
         y_offset = y_pos + d[0]
         x_offset = x_pos + d[1]
 
@@ -47,7 +45,7 @@ def sliding_moves(board, y_pos, x_pos):
                 blocking = board[y_offset][x_offset]
 
                 # Capture
-                if not (blocking.islower() and piece.islower()) or (blocking.isupper() and piece.isupper()):
+                if not (blocking.islower() and piece.islower()) and not (blocking.isupper() and piece.isupper()):
                     moves.append([y_offset, x_offset])
             else:
                 # Empty square
@@ -58,14 +56,17 @@ def sliding_moves(board, y_pos, x_pos):
 
     return moves
 
-
-def knight_moves(board, y_pos, x_pos):
-
+def limited_moves(board, y_pos, x_pos):
+    
     piece = board[y_pos][x_pos]
+    start_dir = 0 if piece.lower() == "k" else 8
+    end_dir = 8 if piece.lower() == "k" else 16
 
     moves = []
 
-    for d in knight_directions:
+    for i in range(start_dir, end_dir):
+        
+        d = directions[i]
         y_offset = y_pos + d[0]
         x_offset = x_pos + d[1]
 
@@ -76,43 +77,13 @@ def knight_moves(board, y_pos, x_pos):
             if blocking != master.ec:
 
                 # Capture
-                if not (blocking.islower() and piece.islower()) or (blocking.isupper() and piece.isupper()):
+                if not (blocking.islower() and piece.islower()) and not (blocking.isupper() and piece.isupper()):
                     moves.append([y_offset, x_offset])
             
             else:
 
                 # Empty square
                 moves.append([y_offset, x_offset])
-    
-    return moves
-
-def king_moves(board, y_pos, x_pos):
-
-    piece = board[y_pos][x_pos]
-
-    moves = []
-    
-    for y in range(-1, 2):
-
-        for x in range(-1, 2):
-
-            y_offset = y_pos + y
-            x_offset = x_pos + x
-
-            if y_offset < master.height and y_offset > -1 and x_offset < master.width and x_offset > -1:
-
-                blocking = board[y_offset][x_offset]
-
-                if blocking != master.ec:
-
-                    # Capture
-                    if not (blocking.islower() and piece.islower()) or (blocking.isupper() and piece.isupper()):
-                        moves.append([y_offset, x_offset])
-                
-                else:
-
-                    # Empty square
-                    moves.append([y_offset, x_offset])
     
     return moves
 

@@ -10,13 +10,17 @@ height = 8
 ec = '-'
 
 # starting_fen = "4k2r/3Nn1r1/8/8/8/8/3R3B/R3K3"
-# stating_fen = "8/p1p1p1p1/3kk3/6k/6K/3KK3/P1P1P1P1/8"
+starting_fen = "8/p1P1p1p1/3kk3/6N/6N/3KK3/P1P1P1P1/8"
 
-starting_fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+# starting_fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
 
 def main():
     board = bu.fen_to_board(starting_fen)
     bu.print_board(board)
+
+    print(mu.limited_moves(board, 3, 6))
+    print(mu.limited_moves(board, 4, 6))
+    print(mu.limited_moves(board, 2, 3))
 
 if __name__ == "__main__":
     main()
