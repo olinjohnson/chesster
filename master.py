@@ -9,8 +9,7 @@ import sys
 from xml.dom import InvalidCharacterErr
 from board_util import Board
 from player_util import Player
-import movement_util as mu
-import chesster
+from chesster import Chesster
 import text
 
 turn = "w"
@@ -36,6 +35,7 @@ def main():
 
     board = Board(text.height, text.width, starting_fen, text.ec)
     player = Player(turn)
+    chesster = Chesster(chesster_turn)
 
     while True:
 
@@ -47,7 +47,7 @@ def main():
 
         else:
 
-            chesster.execute_move(board, chesster_turn)
+            chesster.execute_move(board)
             toggle_turn()
 
 
