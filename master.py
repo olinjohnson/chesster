@@ -8,11 +8,12 @@
 import time
 import sys
 from xml.dom import InvalidCharacterErr
-import board_util as bu
+from board_util import Board
 import movement_util as mu
 import chesster
 import player_util as pu
 
+# Console colors
 black = "\033[0;30m"
 purple = "\033[0;35m"
 blue = "\033[0;34m"
@@ -46,19 +47,20 @@ def main():
         type_text("Invalid response. Terminating.", color=red, finish="\n\n")
         sys.exit()
 
-    board = bu.fen_to_board(starting_fen)
+
+    board = Board(height, width, starting_fen, ec)
 
     while True:
 
         if current_turn == turn:
 
-            bu.print_board(board)
+            board.print_board()
             pu.make_player_move(board, turn)
             toggle_turn()
 
         else:
 
-            board = chesster.execute_move(board, chesster.get_random_move(board, chesster_turn))
+            chesster.execute_move(board, chesster_turn)
             toggle_turn()
 
 

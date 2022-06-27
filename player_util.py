@@ -31,16 +31,16 @@ def request_move(board, turn):
 
     try:
 
-        assassin_coord = bu.algebraic_to_board_coord(assassin_unfiltered)
-        victim_coord = bu.algebraic_to_board_coord(victim_unfiltered)
+        assassin_coord = board.algebraic_to_board_coord(assassin_unfiltered)
+        victim_coord = board.algebraic_to_board_coord(victim_unfiltered)
     
     except:
 
         master.type_text("\n\nINVALID. - INVALID BOARD COORDS\n\n", color=master.red)
         raise InvalidCharacterErr
 
-    assassin = board[assassin_coord[0]][assassin_coord[1]]
-    victim = board[victim_coord[0]][victim_coord[1]]
+    assassin = board.board[assassin_coord[0]][assassin_coord[1]]
+    victim = board.board[victim_coord[0]][victim_coord[1]]
 
     # Check to make sure the player isn't moving the computer's piece
     if (assassin.islower() and turn == "b") or (assassin.isupper() and turn == "w"):
@@ -63,8 +63,8 @@ def request_move(board, turn):
         # If it's a valid capture
         if victim_coord in valid_moves:
 
-            board[victim_coord[0]][victim_coord[1]] = assassin
-            board[assassin_coord[0]][assassin_coord[1]] = master.ec
+            board.board[victim_coord[0]][victim_coord[1]] = assassin
+            board.board[assassin_coord[0]][assassin_coord[1]] = master.ec
             master.type_text("\n\nVALID.", color=master.blue)
         
         else:

@@ -24,7 +24,7 @@ directions = [
 
 def sliding_moves(board, y_pos, x_pos):
 
-    piece = board[y_pos][x_pos]
+    piece = board.board[y_pos][x_pos]
 
     start_dir = 0 if piece.lower() != "b" else 4
     end_dir = 8 if piece.lower() != "r" else 4
@@ -40,9 +40,9 @@ def sliding_moves(board, y_pos, x_pos):
 
         while y_offset < master.height and y_offset > -1 and x_offset < master.width and x_offset > -1 and blocked == 0:
             
-            if board[y_offset][x_offset] != master.ec:
+            if board.board[y_offset][x_offset] != master.ec:
                 blocked = 1
-                blocking = board[y_offset][x_offset]
+                blocking = board.board[y_offset][x_offset]
 
                 # Capture
                 if not (blocking.islower() and piece.islower()) and not (blocking.isupper() and piece.isupper()):
@@ -58,7 +58,7 @@ def sliding_moves(board, y_pos, x_pos):
 
 def limited_moves(board, y_pos, x_pos):
     
-    piece = board[y_pos][x_pos]
+    piece = board.board[y_pos][x_pos]
     start_dir = 0 if piece.lower() == "k" else 8
     end_dir = 8 if piece.lower() == "k" else 16
 
@@ -72,7 +72,7 @@ def limited_moves(board, y_pos, x_pos):
 
         if y_offset < master.height and y_offset > -1 and x_offset < master.width and x_offset > -1:
 
-            blocking = board[y_offset][x_offset]
+            blocking = board.board[y_offset][x_offset]
 
             if blocking != master.ec:
 
@@ -90,7 +90,7 @@ def limited_moves(board, y_pos, x_pos):
 
 def pawn_moves(board, y_pos, x_pos):
 
-    piece = board[y_pos][x_pos]
+    piece = board.board[y_pos][x_pos]
 
     moves = []
 
@@ -103,7 +103,7 @@ def pawn_moves(board, y_pos, x_pos):
 
         if y_offset < master.height and y_offset > -1 and x_offset < master.width and x_offset > -1:
             
-            blocking = board[y_offset][x_offset]
+            blocking = board.board[y_offset][x_offset]
 
             if blocking == master.ec and i == 0:
 
@@ -116,7 +116,7 @@ def pawn_moves(board, y_pos, x_pos):
                     y_offset = y_offset + d[0]
                     x_offset = x_offset + d[1]
 
-                    if board[y_offset][x_offset] == master.ec:
+                    if board.board[y_offset][x_offset] == master.ec:
                         
                         # Pawn is on starting square and can move 2 spaces
                         moves.append([y_offset, x_offset])

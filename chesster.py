@@ -16,7 +16,7 @@ def get_valid_moves(board, turn):
 
         for x in range(0, 8):
 
-            suspect = board[y][x]
+            suspect = board.board[y][x]
 
             if suspect != master.ec:
 
@@ -44,10 +44,12 @@ def get_valid_moves(board, turn):
     return valid_moves
 
 
-def execute_move(board, move):
+def execute_move(board, turn):
 
-    board[move.victim[0]][move.victim[1]] = board[move.assassin[0]][move.assassin[1]]
-    board[move.assassin[0]][move.assassin[1]] = master.ec
+    move = get_random_move(board, turn)
+
+    board.board[move.victim[0]][move.victim[1]] = board.board[move.assassin[0]][move.assassin[1]]
+    board.board[move.assassin[0]][move.assassin[1]] = master.ec
 
     return board
 
