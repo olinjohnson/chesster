@@ -2,7 +2,6 @@
 import sys
 import time
 
-
 black = "\033[0;30m"
 purple = "\033[0;35m"
 blue = "\033[0;34m"

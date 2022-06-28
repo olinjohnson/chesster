@@ -22,6 +22,13 @@ directions = [
     [-1, -2]
 ]
 
+class Move():
+
+    def __init__(self, assassin, victim):
+        self.assassin = assassin
+        self.victim = victim
+
+
 def sliding_moves(board, y_pos, x_pos):
 
     piece = board.board[y_pos][x_pos]
@@ -46,10 +53,10 @@ def sliding_moves(board, y_pos, x_pos):
 
                 # Capture
                 if not (blocking.islower() and piece.islower()) and not (blocking.isupper() and piece.isupper()):
-                    moves.append([y_offset, x_offset])
+                    moves.append(Move([y_pos, x_pos], [y_offset, x_offset]))
             else:
                 # Empty square
-                moves.append([y_offset, x_offset])
+                moves.append(Move([y_pos, x_pos], [y_offset, x_offset]))
 
             y_offset = y_offset + d[0]
             x_offset = x_offset + d[1]
@@ -78,12 +85,12 @@ def limited_moves(board, y_pos, x_pos):
 
                 # Capture
                 if not (blocking.islower() and piece.islower()) and not (blocking.isupper() and piece.isupper()):
-                    moves.append([y_offset, x_offset])
+                    moves.append(Move([y_pos, x_pos], [y_offset, x_offset]))
             
             else:
 
                 # Empty square
-                moves.append([y_offset, x_offset])
+                moves.append(Move([y_pos, x_pos], [y_offset, x_offset]))
     
     return moves
 
@@ -108,7 +115,7 @@ def pawn_moves(board, y_pos, x_pos):
             if blocking == text.ec and i == 0:
 
                 # Empty Square
-                moves.append([y_offset, x_offset])
+                moves.append(Move([y_pos, x_pos], [y_offset, x_offset]))
 
                 # Check for double move initially
                 if y_pos == 1 or y_pos == 6:
@@ -119,11 +126,11 @@ def pawn_moves(board, y_pos, x_pos):
                     if board.board[y_offset][x_offset] == text.ec:
                         
                         # Pawn is on starting square and can move 2 spaces
-                        moves.append([y_offset, x_offset])
+                        moves.append(Move([y_pos, x_pos], [y_offset, x_offset]))
             
             elif ((blocking.islower() and piece.isupper()) or (blocking.isupper() and piece.islower())) and i != 0:
                 
                 # Capture
-                moves.append([y_offset, x_offset])
+                moves.append(Move([y_pos, x_pos], [y_offset, x_offset]))
 
     return moves

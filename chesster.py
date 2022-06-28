@@ -1,13 +1,7 @@
 import text
 import movement_util as mu
+from movement_util import Move
 import random
-
-class Move():
-
-    def __init__(self, assassin, victim):
-        self.assassin = assassin
-        self.victim = victim
-
 
 class Chesster:
 
@@ -29,39 +23,35 @@ class Chesster:
 
                     if (suspect.islower() and self.turn == "b") or (suspect.isupper() and self.turn == "w"):
 
-                        individual_moves = []
-
                         if suspect.lower() == "r" or suspect.lower() == "b" or suspect.lower() == "q":
 
-                            individual_moves = mu.sliding_moves(board, y, x)
+                            valid_moves.extend(mu.sliding_moves(board, y, x))
                         
                         elif suspect.lower() == "n" or suspect.lower() == "k":
 
-                            individual_moves = mu.limited_moves(board, y, x)
+                            valid_moves.extend(mu.limited_moves(board, y, x))
 
                         else:
 
-                            individual_moves = mu.pawn_moves(board, y, x)
-                        
-                        for m in individual_moves:
-
-                            valid_move = Move([y, x], m)
-                            valid_moves.append(valid_move)
+                            valid_moves.extend(mu.pawn_moves(board, y, x))
         
         return valid_moves
 
 
     def execute_move(self, board):
 
+        text.type_text("Chesster is thinking...", color=text.yellow)
+
         move = self.get_random_move(board)
 
         board.board[move.victim[0]][move.victim[1]] = board.board[move.assassin[0]][move.assassin[1]]
         board.board[move.assassin[0]][move.assassin[1]] = text.ec
 
+        mu.previous_moves.append(move)
+
 
     def get_random_move(self, board):
 
         valid_moves = self.get_valid_moves(board)
-        text.type_text("Chesster is thinking...", color=text.yellow)
         print("Number of possibilities: ", len(valid_moves), "\n")
         return random.choice(valid_moves)

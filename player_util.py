@@ -1,5 +1,6 @@
 from xml.dom import InvalidCharacterErr, InvalidStateErr
 import movement_util as mu
+from movement_util import Move
 import text
 
 class Player:
@@ -34,18 +35,17 @@ class Player:
 
             raise InvalidStateErr
 
+
         try:
 
-            assassin_coord = board.algebraic_to_board_coord(assassin_unfiltered)
-            victim_coord = board.algebraic_to_board_coord(victim_unfiltered)
+            move = Move(board.algebraic_to_board_coord(assassin_unfiltered), board.algebraic_to_board_coord(victim_unfiltered))
         
         except:
 
             text.type_text("\n\nINVALID. - INVALID BOARD COORDS\n\n", color=text.red)
             raise InvalidCharacterErr
 
-        assassin = board.board[assassin_coord[0]][assassin_coord[1]]
-        victim = board.board[victim_coord[0]][victim_coord[1]]
+        assassin = board.board[move.assassin[0]][move.assassin[1]]
 
         # Check to make sure the player isn't moving the computer's piece
         if (assassin.islower() and self.turn == "b") or (assassin.isupper() and self.turn == "w"):
@@ -55,22 +55,24 @@ class Player:
             # Retrieve valid moves
             if assassin.lower() == "r" or assassin.lower() == "b" or assassin.lower() == "q":
 
-                valid_moves = mu.sliding_moves(board, assassin_coord[0], assassin_coord[1])
+                valid_moves = mu.sliding_moves(board, move.assassin[0], move.assassin[1])
             
             elif assassin.lower() == "n" or assassin.lower() == "k":
 
-                valid_moves = mu.limited_moves(board, assassin_coord[0], assassin_coord[1])
+                valid_moves = mu.limited_moves(board, move.assassin[0], move.assassin[1])
             
             else:
 
-                valid_moves = mu.pawn_moves(board, assassin_coord[0], assassin_coord[1])
+                valid_moves = mu.pawn_moves(board, move.assassin[0], move.assassin[1])
 
-            # If it's a valid capture
-            if victim_coord in valid_moves:
+            # If it's a valid move
+            if move.victim in [vm.victim for vm in valid_moves]:
 
-                board.board[victim_coord[0]][victim_coord[1]] = assassin
-                board.board[assassin_coord[0]][assassin_coord[1]] = text.ec
+                board.board[move.victim[0]][move.victim[1]] = assassin
+                board.board[move.assassin[0]][move.assassin[1]] = text.ec
                 text.type_text("\n\nVALID.", color=text.blue)
+
+                mu.previous_moves.append(move)
             
             else:
 

@@ -3,7 +3,6 @@
 
 # TODO: Pawn Promo, Pinned Pieces, En Passent, Castling
 # TODO: Check for Check, Check for Checkmate
-# TODO: Revise `request_move` to utilize `Move` class
 
 import sys
 from xml.dom import InvalidCharacterErr
@@ -54,7 +53,7 @@ def main():
 def start_game():
     
     print("\n\n")
-    text.type_text("Hey there, I'm chesster.", color=text.blue)
+    text.type_text("Hey there, I'm Chesster.", color=text.blue)
     text.type_text("Let's begin.", color=text.blue, finish="\n\n")
 
     text.type_text("Would you like to be black or white?", color=text.green)
