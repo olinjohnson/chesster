@@ -18,7 +18,7 @@ current_turn = "w"
 # starting_fen = "4k2r/3Nn1r1/8/8/8/8/3R3B/R3K3"
 # starting_fen = "8/p1P1p1p1/3kk3/6N/6N/3KK3/P1P1P1P1/8"
 
-starting_fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+starting_fen = "rnbqkbnr/1ppppppp/8/pP6/8/8/P1PPPPPP/RNBQKBNR"
 
 def main():
 
@@ -41,6 +41,7 @@ def main():
         if current_turn == turn:
 
             board.print_board()
+            print([mv.destination for mv in board.previous_moves])
             player.make_player_move(board)
             toggle_turn()
 

@@ -39,7 +39,7 @@ class Player:
         try:
 
             move = Move(board.algebraic_to_board_coord(assassin_unfiltered), board.algebraic_to_board_coord(victim_unfiltered))
-        
+
         except:
 
             text.type_text("\n\nINVALID. - INVALID BOARD COORDS\n\n", color=text.red)
@@ -66,22 +66,24 @@ class Player:
                 valid_moves = mu.pawn_moves(board, move.assassin[0], move.assassin[1])
 
             # If it's a valid move
-            if move.victim in [vm.victim for vm in valid_moves]:
+            for vm in valid_moves:
 
-                board.board[move.victim[0]][move.victim[1]] = assassin
-                board.board[move.assassin[0]][move.assassin[1]] = text.ec
-                text.type_text("\n\nVALID.", color=text.blue)
+                if move.destination == vm.destination:
 
-                mu.previous_moves.append(move)
-            
-            else:
+                    board.board[vm.victim[0]][vm.victim[1]] = text.ec
+                    board.board[vm.destination[0]][vm.destination[1]] = assassin
+                    board.board[vm.assassin[0]][vm.assassin[1]] = text.ec
+                    text.type_text("\n\nVALID.", color=text.blue)
 
-                text.type_text("\n\nINVALID. - NOT A VALID MOVE", color=text.red)
-                raise InvalidCharacterErr
+                    board.previous_moves.append(vm)
+
+                    return
+
+            text.type_text("\n\nINVALID. - NOT A VALID MOVE", color=text.red)
+            raise InvalidCharacterErr
 
         else:
 
             text.type_text("\n\nINVALID. - YOU MAY ONLY MOVE YOUR OWN PIECES.", color=text.red)
             raise InvalidCharacterErr
         
-        print("\n\n")

@@ -44,10 +44,11 @@ class Chesster:
 
         move = self.get_random_move(board)
 
-        board.board[move.victim[0]][move.victim[1]] = board.board[move.assassin[0]][move.assassin[1]]
+        board.board[move.victim[0]][move.victim[1]] = text.ec
+        board.board[move.destination[0]][move.destination[1]] = board.board[move.assassin[0]][move.assassin[1]]
         board.board[move.assassin[0]][move.assassin[1]] = text.ec
 
-        mu.previous_moves.append(move)
+        board.previous_moves.append(move)
 
 
     def get_random_move(self, board):

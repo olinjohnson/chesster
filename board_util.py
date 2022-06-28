@@ -1,11 +1,13 @@
 from xml.dom import InvalidCharacterErr
 import text
+from movement_util import Move
 
 class Board:
 
     def __init__(self, height, width, fen, ec):
 
         self.board = []
+        self.previous_moves = [Move([1,0], [3, 0], [3, 0])]
 
         for y in range(0, height):
             
